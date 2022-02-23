@@ -4,23 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <title>Viiny</title>
 </head>
 <body>
     <div class="message">test message</div>
     <div class="message">test message-2</div>
-    <div class="message">test message-3</div>
-    <div class="message">test message-4</div>
     
     <script src="/app.bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
     <script>
+        // console.log(viiny(".message"));
+        // $(".message").each((index, item) => {
+        //     console.log($(item));
+        // });
+
         viiny(".message").each((index, item) => {
-            console.log(index, item);
+            viiny(item).hide();
+            // console.log(viiny(item));
         });
 
-        setTimeout(() => {
-            viiny(".message").hide();
-        }, 3000);
     </script>
 </body>
 </html>

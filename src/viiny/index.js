@@ -7,17 +7,20 @@ var viiny = function(_elm) {
 viiny.instance = function (_elm) {
     var _selector, i;
 
+    this.elements = [];
+
     if (typeof _elm === 'string') {
         _selector = document.querySelectorAll(_elm);
 
-    } else {
-        return _elm;
+    } else if (_elm.nodeType) {
+        this.elements.push(_elm);
+        return this;
     }
 
     if (_selector.length > 0) {
 
         for (i = 0; i < _selector.length; i++) {
-            this[i] = _selector[i];
+            this.elements.push(_selector[i]);
         }
 
         this.length = _selector.length;
@@ -47,12 +50,12 @@ viiny.extend = function (obj) {
 viiny.fn = viiny.prototype = {
 
     each: function (_fn) {
-        viiny.each(this, _fn);
+        viiny.each(this.elements, _fn);
         return this;
     },
 
     hide: function (_fn) {
-        viiny.each(this, function (i, item) {
+        viiny.each(this.elements, function (i, item) {
             item.style.display = 'none';
 
             if (_fn) {
@@ -64,7 +67,7 @@ viiny.fn = viiny.prototype = {
     },
 
     show: function (_fn) {
-        viiny.each(this, function (i, item) {
+        viiny.each(this.elements, function (i, item) {
             item.style.display = null;
 
             if (_fn) {
