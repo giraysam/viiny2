@@ -202,6 +202,18 @@ viiny.fn = viiny.prototype = {
             this[0].setAttribute(`data-${_name}`, _value);
         }
         return this;
+    },
+    html: function(_value) {
+        if (_value) {
+            this[0].innerHTML = _value;
+        }
+        return this;
+    },
+    text: function(_value) {
+        if (_value) {
+            this[0].innerText = _value;
+        }
+        return this;
     }
 };
 
