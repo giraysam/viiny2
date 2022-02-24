@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,24 +8,34 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <title>Viiny</title>
 </head>
+
 <body>
-    <div class="message">test message</div>
-    <div class="message">test message-2</div>
-    
+    <div class="container">
+        <div class="message">test message</div>
+        <div class="message">test message-2</div>
+        <div class="error-message">error message</div>
+    </div>
+
+    <article class="error">
+        <div id="div-01">Here is div-01
+            <div id="div-02">Here is div-02
+                <div class="error alert" id="div-03">Here is div-03</div>
+            </div>
+        </div>
+    </article>
+
     <script src="/app.bundle.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
     <script>
         // console.log(viiny(".message"));
-        // $(".message").each((index, item) => {
-        //     console.log($(item));
+        // viiny(".message").each((index, item) => {
+        //     console.log(viiny(item).hasClass("message"));
         // });
 
-        viiny(".message").each((index, item) => {
-            viiny(item).hide();
-            // console.log(viiny(item));
-        });
+        viiny("#div-03").closest("#div-01").class("hide");
+        viiny("article").removeClass("error").addClass("alert");
 
     </script>
 </body>
+
 </html>
