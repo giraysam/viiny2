@@ -178,13 +178,30 @@ viiny.fn = viiny.prototype = {
 
         return _this;
     },
-    firstChild: function() {
+    parent: function() {
+        if (this[0].parentElement) {
+            this[0] = this[0].parentElement,
+            this.length = 1;
+        }
+        return this;
+    },
+    first: function() {
         let _childElements = this.child();
         return viiny(_childElements[0]);
     },
-    lastChild: function() {
+    last: function() {
         let _childElements = this.child();
         return viiny(_childElements[_childElements.length-1]);
+    },
+    data: function(_name, _value) {
+        if (_name && !_value) {
+            return this[0].dataset[_name];
+        }
+        else if(_name && _value) {
+            this[0].removeAttribute(`data-${_name}`);
+            this[0].setAttribute(`data-${_name}`, _value);
+        }
+        return this;
     }
 };
 
