@@ -59,7 +59,9 @@ viiny.fn = viiny.prototype = {
         return this;
     },
     hide: function(_fn) {
-        this[0].style.display = 'none';
+        this.each(function(_, item) {
+            item.style.display = 'none';
+        });
 
         if (_fn) {
             _fn.call(this, item);
@@ -68,7 +70,12 @@ viiny.fn = viiny.prototype = {
         return this;
     },
     show: function(_fn) {
-        this[0].style.display = null;
+        this.each(function(_, item) {
+            item.style.display = null;
+            if (!item.style.length) {
+                item.removeAttribute("style");
+            }
+        });
 
         if (_fn) {
             _fn.call(this, item);
@@ -92,16 +99,20 @@ viiny.fn = viiny.prototype = {
     },
     addClass: function(_className) {
         if (_className) {
-            this[0].classList.add(_className);
+            this.each(function(_, item) {
+                item.classList.add(_className);
+            });
         }
         return this;
     },
     removeClass: function(_className) {
         if (_className) {
-            this[0].classList.remove(_className);
-            if (!this[0].classList.length) {
-                this[0].removeAttribute('class');
-            }
+            this.each(function(_, item) {
+                item.classList.remove(_className);
+                if (!item.classList.length) {
+                    item.removeAttribute('class');
+                }
+            });
         }
         return this;
     },
@@ -119,6 +130,62 @@ viiny.fn = viiny.prototype = {
 
         return this;
     },
+    hasAttr: function (_attr) {
+        if (_attr) {
+            return this[0].hasAttribute(_attr);
+        }
+        return false;
+    },
+    addAttr: function(_attr, _value) {
+        _value = (typeof _value !== 'undefined') ?  _value : ''
+
+        if (_attr) {
+            this.each(function(_, item) {
+                item.setAttribute(_attr, _value);
+            });
+        }
+        return this;
+    },
+    removeAttr: function(_attr) {
+        if (_attr) {
+            this.each(function(_, item) {
+                item.removeAttribute(_attr);
+            });
+        }
+        return this;
+    },
+    attr: function(_attr, _value) {
+        _value = (typeof _value !== 'undefined') ?  _value : ''
+
+        if (_attr) {
+            if (_value === false) {
+                this.removeAttr(_attr);
+            }
+            else {
+                this.addAttr(_attr, _value);
+            }
+        }
+
+        return this;
+    },
+    child: function() {
+        let _childElements = this[0].children;
+        this.length = _childElements.length
+        let _this = this;
+        viiny.each(_childElements, function(i, item) {
+            _this[i] = item;
+        });
+
+        return _this;
+    },
+    firstChild: function() {
+        let _childElements = this.child();
+        return viiny(_childElements[0]);
+    },
+    lastChild: function() {
+        let _childElements = this.child();
+        return viiny(_childElements[_childElements.length-1]);
+    }
 };
 
 viiny.instance.prototype = viiny.fn;
